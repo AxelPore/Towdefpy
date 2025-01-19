@@ -51,7 +51,8 @@ def main():
     mines = []
 
     # Timing variables for spawning and deleting enemies
-    spawn_interval = 5000  # 15 seconds
+    spawn_interval = 1000  # 1 seconds
+    ennemiesSpawned = 0
     last_spawn_time = 0
 
     production_interval = 10000  # 10 seconds
@@ -64,6 +65,13 @@ def main():
     mine_cooldown = 0.5  # 0.5 seconds cooldown
     last_mine_time = 0
 
+    wave_start_time = 0
+    wave_active = False
+    wave_duration = 60 * 1000  # 1 minute in milliseconds
+    wave_interval = 3 * 60 * 1000  # 3 minutes in milliseconds
+    initial_delay = 30 * 1000
+
+    numberOfWaves = 0
     running = True
     clock = pygame.time.Clock()
     while running:
@@ -131,16 +139,63 @@ def main():
                         magic_cristals -= 10
                         last_mine_time = current_time  # Update last mine time
 
-        # Enemy spawning logic
-        if current_time - last_spawn_time > spawn_interval:
-            while True:
-                enemy_x = random.randint(0, tmx_data.width * tmx_data.tilewidth - 50)
-                enemy_y = random.randint(0, tmx_data.height * tmx_data.tileheight - 50)
-                if enemy_x < 720 or enemy_y < 720 or enemy_x > tmx_data.width * tmx_data.tilewidth - 720 or enemy_y > tmx_data.width * tmx_data.tilewidth - 720:
-                    break
-            enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
-            last_spawn_time = current_time
+        # Check if it's time to start a new wave
+        if not wave_active and current_time - wave_start_time > wave_interval:
+            wave_active = True
+            wave_start_time = current_time
 
+        # If a wave is active, spawn enemies every second
+        if wave_active:
+            if current_time - last_spawn_time > 1000:  # 1 second in milliseconds
+                while True:
+                    enemy_x = random.randint(0, tmx_data.width * tmx_data.tilewidth - 50)
+                    enemy_y = random.randint(0, tmx_data.height * tmx_data.tileheight - 50)
+                    if enemy_x < 720 or enemy_y < 720 or enemy_x > tmx_data.width * tmx_data.tilewidth - 720 or enemy_y > tmx_data.width * tmx_data.tilewidth - 720:
+                        break
+                if numberOfWaves < 5:
+                    enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
+                elif numberOfWaves < 15 :
+                    if ennemiesSpawned < 40:
+                        enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
+                    else:
+                        enemies.append(character.MediumEnnemi(enemy_x, enemy_y))
+                elif numberOfWaves < 30 :
+                    if ennemiesSpawned < 30:
+                        enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
+                    elif ennemiesSpawned < 50 :
+                        enemies.append(character.MediumEnnemi(enemy_x, enemy_y))
+                    else:
+                        enemies.append(character.AdvancedEnnemi(enemy_x, enemy_y))
+                elif numberOfWaves < 50 :
+                    if ennemiesSpawned < 20:
+                        enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
+                    elif ennemiesSpawned < 40 :
+                        enemies.append(character.MediumEnnemi(enemy_x, enemy_y))
+                    elif ennemiesSpawned < 55:
+                        enemies.append(character.AdvancedEnnemi(enemy_x, enemy_y))
+                    else:
+                        enemies.append(character.EliteEnnemi(enemy_x, enemy_y))
+                else:
+                    if ennemiesSpawned < 15:
+                        enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
+                    elif ennemiesSpawned < 35 :
+                        enemies.append(character.MediumEnnemi(enemy_x, enemy_y))
+                    elif ennemiesSpawned < 50:
+                        enemies.append(character.AdvancedEnnemi(enemy_x, enemy_y))
+                    elif ennemiesSpawned < 59:
+                        enemies.append(character.EliteEnnemi(enemy_x, enemy_y))
+                    else:
+                        enemies.append(character.BossEnnemi(enemy_x, enemy_y))
+                last_spawn_time = current_time
+                ennemiesSpawned+=1
+
+            # Check if the wave duration has ended
+            if current_time - wave_start_time > wave_duration:
+                wave_active = False
+                wave_start_time = current_time + wave_interval  # Set the next wave start time  
+                numberOfWaves+=1 
+                ennemiesSpawned = 0                     
+        
         # Resource production logic
         if current_time - last_production_time > production_interval:
             magic_cristals = nexus.product(magic_cristals)
