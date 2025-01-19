@@ -44,7 +44,8 @@ class Nexus(Turret_and_building):
 
     def draw(self, surface, offset_x, offset_y):
         pygame.draw.circle(surface, (0, 255, 255), (self.x + offset_x, self.y + offset_y), self.range, 1)
-        surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
+        self.image = pygame.transform.scale(self.image, (int(self.width * 2), int(self.height * 2)))
+        surface.blit(self.image, (self.x + offset_x - 30, self.y + offset_y - 30))
 
     def attack(self, enemies, projectiles):
         current_time = pygame.time.get_ticks()
@@ -80,8 +81,9 @@ class Missile:
             return True
         return False
 
-class Magic_Tower:
+class Magic_Tower(Turret_and_building):
     def __init__(self, x, y):
+        super().__init__(x, y)
         self.x = x
         self.y = y
         self.range = 300
@@ -90,7 +92,8 @@ class Magic_Tower:
 
     def draw(self, surface, offset_x, offset_y):
         pygame.draw.circle(surface, (0, 255, 255), (self.x + offset_x, self.y + offset_y), self.range, 1)
-        surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
+        self.image = pygame.transform.scale(self.image, (int(self.width * 2), int(self.height * 2)))
+        surface.blit(self.image, (self.x + offset_x- 40, self.y + offset_y- 45))
 
     def attack(self, enemies, projectiles):
         current_time = pygame.time.get_ticks()
@@ -128,6 +131,7 @@ class Magic_Projectile:
         
 class Physical_Tower(Turret_and_building):
     def __init__(self, x, y):
+        super().__init__(x, y)
         self.x = x
         self.y = y
         self.range = 150
@@ -136,7 +140,8 @@ class Physical_Tower(Turret_and_building):
 
     def draw(self, surface, offset_x, offset_y):
         pygame.draw.circle(surface, (0, 255, 255), (self.x + offset_x, self.y + offset_y), self.range, 1)
-        surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
+        self.image = pygame.transform.scale(self.image, (int(self.width * 2), int(self.height * 2)))
+        surface.blit(self.image, (self.x + offset_x- 40, self.y + offset_y- 50))
 
     def attack(self, enemies, projectiles):
         current_time = pygame.time.get_ticks()
@@ -186,6 +191,7 @@ class Gold_Mine(Turret_and_building):
         return gold + self.production, minerals
 
     def draw(self, surface, offset_x, offset_y):
+        self.image = pygame.transform.scale(self.image, (int(self.width * 1.75), int(self.height * 2)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
 class Minerals_Mine(Turret_and_building):
@@ -200,6 +206,7 @@ class Minerals_Mine(Turret_and_building):
         return gold, minerals + self.production
 
     def draw(self, surface, offset_x, offset_y):
+        self.image = pygame.transform.scale(self.image, (int(self.width * 1.75), int(self.height * 2)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
     def __del__(self):
         print(f"{self} has been deleted")
