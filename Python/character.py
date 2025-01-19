@@ -93,7 +93,7 @@ class MediumEnnemi(Character):
         self.health = 70
         self.armor = 10
         self.magic_resist = 10
-        self.speed = 50
+        self.speed = 35
         self.strength = 10
         self.magic_power = 10
         self.critical_rate = 0
@@ -121,7 +121,7 @@ class AdvancedEnnemi(Character):
         self.health = 150
         self.armor = 10
         self.magic_resist = 10
-        self.speed = 50
+        self.speed = 20
         self.strength = 10
         self.magic_power = 10
         self.critical_rate = 0
@@ -149,7 +149,7 @@ class EliteEnnemi(Character):
         self.health = 300
         self.armor = 10
         self.magic_resist = 10
-        self.speed = 50
+        self.speed = 13
         self.strength = 10
         self.magic_power = 10
         self.critical_rate = 0
@@ -177,7 +177,7 @@ class BossEnnemi(Character):
         self.health = 1000
         self.armor = 10
         self.magic_resist = 10
-        self.speed = 50
+        self.speed = 6
         self.strength = 10
         self.magic_power = 10
         self.critical_rate = 0
