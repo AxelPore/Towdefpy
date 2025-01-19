@@ -139,7 +139,7 @@ def main():
             last_production_time = current_time
         # Enemy chasing logic
         for enemy in enemies:
-            enemy.chase(player)
+            enemy.chase(nexus)
 
         # Turret attack logic
         for turret in turrets:
