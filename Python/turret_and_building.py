@@ -30,8 +30,6 @@ class Nexus(Turret_and_building):
     def take_dmg(self, amount):
         self.health -= amount
         print(f"Damage taken by nexus: {amount}, Health remaining: {self.health}")
-        if self.health <= 0:
-            self.__del__()
 
     def product(self, magical_cristals):
         return magical_cristals + self.production

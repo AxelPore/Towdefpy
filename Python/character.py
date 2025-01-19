@@ -12,8 +12,8 @@ class Character:
 
     def take_dmg(self, amount):
         self.health -= amount
-        if self.health <= 0:
-            self.__del__()
+        
+            
 
     def do_dmg(self, target):
         current_time = pygame.time.get_ticks()
