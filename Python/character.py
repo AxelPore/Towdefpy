@@ -116,6 +116,12 @@ class MediumEnnemi(Character):
         self.image = pygame.transform.scale(self.image, (int(self.width * 2), int(self.height * 2)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
+    def do_dmg(self, target):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_attack_time >= 1000:  # 1 second cooldown
+            target.take_dmg(20)
+            self.last_attack_time = current_time
+        
 class AdvancedEnnemi(Character):
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -144,6 +150,12 @@ class AdvancedEnnemi(Character):
         # Draw the enemy as a blue square
         self.image = pygame.transform.scale(self.image, (int(self.width * 3), int(self.height * 3)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
+        
+    def do_dmg(self, target):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_attack_time >= 1000:  # 1 second cooldown
+            target.take_dmg(40)
+            self.last_attack_time = current_time
         
 class EliteEnnemi(Character):
     def __init__(self, x, y):
@@ -174,6 +186,12 @@ class EliteEnnemi(Character):
         self.image = pygame.transform.scale(self.image, (int(self.width * 4), int(self.height * 4)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
+    def do_dmg(self, target):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_attack_time >= 1000:  # 1 second cooldown
+            target.take_dmg(150)
+            self.last_attack_time = current_time
+        
 class BossEnnemi(Character):
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -202,3 +220,9 @@ class BossEnnemi(Character):
         # Draw the enemy as a blue square
         self.image = pygame.transform.scale(self.image, (int(self.width * 5), int(self.height * 5)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
+        
+    def do_dmg(self, target):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_attack_time >= 1000:  # 1 second cooldown
+            target.take_dmg(1000)
+            self.last_attack_time = current_time

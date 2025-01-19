@@ -29,7 +29,7 @@ class Nexus(Turret_and_building):
         self.y = y
         self.range = 300
         self.last_attack_time = 0
-        self.health = 1000
+        self.health = 10000
         self.armor = 100
         self.magic_resist = 100
         self.strength = 100
@@ -38,6 +38,12 @@ class Nexus(Turret_and_building):
         self.critical_damage = 1.5
         self.production = 10
         self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\Maps\Nexus.png')
+
+    def take_dmg(self, amount):
+        self.health -= amount
+        print(f"Damage taken: {amount}, Health remaining: {self.health}")
+        if self.health <= 0:
+            self.__del__()
 
     def product(self, magical_cristals):
         return magical_cristals + self.production
