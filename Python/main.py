@@ -84,42 +84,53 @@ def main():
         if keys[pygame.K_DOWN]:
             player.move(0, 5, tmx_data.width * tmx_data.tilewidth, tmx_data.height * tmx_data.tileheight)
         
+        def is_position_valid(x, y, existing_objects, min_distance=50):
+            for obj in existing_objects:
+                if abs(obj.x - x) < min_distance and abs(obj.y - y) < min_distance:
+                    return False
+            return True
+
         # Check for building turret and mine
         if keys[pygame.K_TAB]:
-            if current_time - last_turret_time > turret_cooldown * 1000:  # Convert to milliseconds
-                if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
-                    turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
-                    gold -= 10
-                    minerals -= 10
-                    magic_cristals -= 10
-                    last_turret_time = current_time  # Update last turret time
+            if current_time - last_turret_time > turret_cooldown * 1000:
+                if is_position_valid(player.x, player.y, mines + turrets):  # Convert to milliseconds
+                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                        turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
+                        gold -= 10
+                        minerals -= 10
+                        magic_cristals -= 10
+                        last_turret_time = current_time  # Update last turret time
 
         if keys[pygame.K_1]:
             if current_time - last_turret_time > turret_cooldown * 1000:  # Convert to milliseconds
-                if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
-                    turrets.append(turret_and_building.Physical_Tower(player.x, player.y))
-                    gold -= 10
-                    minerals -= 10
-                    magic_cristals -= 10
-                    last_turret_time = current_time  # Update last turret time
+                if is_position_valid(player.x, player.y, mines + turrets):
+                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                        turrets.append(turret_and_building.Physical_Tower(player.x, player.y))
+                        gold -= 10
+                        minerals -= 10
+                        magic_cristals -= 10
+                        last_turret_time = current_time  # Update last turret time
 
         if keys[pygame.K_SPACE]:
             if current_time - last_mine_time > mine_cooldown * 1000:  # Convert to milliseconds
-                if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
-                    mines.append(turret_and_building.Gold_Mine(player.x, player.y))
-                    gold -= 10
-                    minerals -= 10
-                    magic_cristals -= 10
-                    last_mine_time = current_time  # Update last mine time
+                if is_position_valid(player.x, player.y, mines + turrets):
+                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                        mines.append(turret_and_building.Gold_Mine(player.x, player.y))
+                        gold -= 10
+                        minerals -= 10
+                        magic_cristals -= 10
+                        last_mine_time = current_time  # Update last mine time
 
         if keys[pygame.K_0]:
             if current_time - last_mine_time > mine_cooldown * 1000:  # Convert to milliseconds
-                if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
-                    mines.append(turret_and_building.Minerals_Mine(player.x, player.y))
-                    gold -= 10
-                    minerals -= 10
-                    magic_cristals -= 10
-                    last_mine_time = current_time  # Update last mine time
+                if is_position_valid(player.x, player.y, mines + turrets):
+                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                        
+                        mines.append(turret_and_building.Minerals_Mine(player.x, player.y))
+                        gold -= 10
+                        minerals -= 10
+                        magic_cristals -= 10
+                        last_mine_time = current_time  # Update last mine time
 
         # Enemy spawning logic
         if current_time - last_spawn_time > spawn_interval:
