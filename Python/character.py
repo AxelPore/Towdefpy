@@ -28,8 +28,8 @@ class Character:
         self.y += dy
 
         # Restrict movement to the map boundaries
-        self.x = max(1000, min(self.x, map_width - self.width - 1000))
-        self.y = max(1000, min(self.y, map_height - self.height - 1000))
+        self.x = max(730, min(self.x, map_width - self.width - 730))
+        self.y = max(730, min(self.y, map_height - self.height - 730))
 
     def draw(self, surface, offset_x, offset_y):
         # Placeholder for drawing the character (a red square for now)
