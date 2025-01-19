@@ -52,13 +52,12 @@ class PlayerEngineer(Character):
         self.magic_power = 10
         self.critical_rate = 0.25
         self.critical_damage = 0.5
+        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\BigTankLeft.png')
 
-    def build(self):
-        turret = turret_and_building.Magic_Tower(self.x, self.y)
 
     def draw(self, surface, offset_x, offset_y):
         # Draw the player as a green square
-        pygame.draw.rect(surface, (0, 255, 0), (self.x + offset_x, self.y + offset_y, self.width, self.height))
+        surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
 
 class BaseEnnemi(Character):
     def __init__(self, x, y):
@@ -71,6 +70,7 @@ class BaseEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
+        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\MagicGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -85,7 +85,7 @@ class BaseEnnemi(Character):
 
     def draw(self, surface, offset_x, offset_y):
         # Draw the enemy as a blue square
-        pygame.draw.rect(surface, (0, 0, 255), (self.x + offset_x, self.y + offset_y, self.width, self.height))
+        surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
 class medium_ennemi(Character):
     def __init__(self):
