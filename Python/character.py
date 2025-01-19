@@ -113,7 +113,7 @@ class MediumEnnemi(Character):
 
     def draw(self, surface, offset_x, offset_y):
         # Draw the enemy as a blue square
-        self.image = pygame.transform.scale(self.image, (int(self.width * 1.5), int(self.height * 1.5)))
+        self.image = pygame.transform.scale(self.image, (int(self.width * 2), int(self.height * 2)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
 class AdvancedEnnemi(Character):
@@ -142,7 +142,7 @@ class AdvancedEnnemi(Character):
 
     def draw(self, surface, offset_x, offset_y):
         # Draw the enemy as a blue square
-        self.image = pygame.transform.scale(self.image, (int(self.width * 2), int(self.height * 2)))
+        self.image = pygame.transform.scale(self.image, (int(self.width * 3), int(self.height * 3)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
 class EliteEnnemi(Character):
@@ -171,7 +171,7 @@ class EliteEnnemi(Character):
 
     def draw(self, surface, offset_x, offset_y):
         # Draw the enemy as a blue square
-        self.image = pygame.transform.scale(self.image, (int(self.width * 2.5), int(self.height * 2.5)))
+        self.image = pygame.transform.scale(self.image, (int(self.width * 4), int(self.height * 4)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
 class BossEnnemi(Character):
@@ -200,5 +200,5 @@ class BossEnnemi(Character):
 
     def draw(self, surface, offset_x, offset_y):
         # Draw the enemy as a blue square
-        self.image = pygame.transform.scale(self.image, (int(self.width * 3.5), int(self.height * 3.5)))
+        self.image = pygame.transform.scale(self.image, (int(self.width * 5), int(self.height * 5)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
