@@ -98,42 +98,42 @@ def main():
         if keys[pygame.K_TAB]:
             if current_time - last_turret_time > turret_cooldown * 1000:
                 if is_position_valid(player.x, player.y, mines + turrets):  # Convert to milliseconds
-                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    if gold >= 20 and minerals >= 10 and magic_cristals >= 30:
                         turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
-                        gold -= 10
+                        gold -= 20
                         minerals -= 10
-                        magic_cristals -= 10
+                        magic_cristals -= 30
                         last_turret_time = current_time  
 
         if keys[pygame.K_1]:
             if current_time - last_turret_time > turret_cooldown * 1000:  # Convert to milliseconds
                 if is_position_valid(player.x, player.y, mines + turrets):
-                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    if gold >= 10 and minerals >= 20 and magic_cristals >= 10:
                         turrets.append(turret_and_building.Physical_Tower(player.x, player.y))
                         gold -= 10
-                        minerals -= 10
+                        minerals -= 20
                         magic_cristals -= 10
                         last_turret_time = current_time  
 
         if keys[pygame.K_SPACE]:
             if current_time - last_mine_time > mine_cooldown * 1000:  # Convert to milliseconds
                 if is_position_valid(player.x, player.y, mines + turrets):
-                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    if gold >= 10 and minerals >= 10 and magic_cristals >= 5:
                         mines.append(turret_and_building.Gold_Mine(player.x, player.y))
                         gold -= 10
                         minerals -= 10
-                        magic_cristals -= 10
+                        magic_cristals -= 5
                         last_mine_time = current_time  
 
         if keys[pygame.K_0]:
             if current_time - last_mine_time > mine_cooldown * 1000:  # Convert to milliseconds
                 if is_position_valid(player.x, player.y, mines + turrets):
-                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    if gold >= 10 and minerals >= 10 and magic_cristals >= 5:
                         
                         mines.append(turret_and_building.Minerals_Mine(player.x, player.y))
                         gold -= 10
                         minerals -= 10
-                        magic_cristals -= 10
+                        magic_cristals -= 5
                         last_mine_time = current_time  
 
         # Check if it's time to start a new wave
