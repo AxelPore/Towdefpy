@@ -11,6 +11,13 @@ class Character:
         self.magic_power
         self.critical_rate
         self.critical_damage
+    def take_dmg(self):
+        print("dmg taken")
+    def do_dmg(self):
+        print("dmg dealt")
+    def move(self):
+        print("moved")
+    
     def __del__(self):
         print(f"{self} has been deleted")
         
@@ -24,6 +31,8 @@ class Player_engineer(Character):
         self.magic_power = 10
         self.critical_rate = 0.25
         self.critical_damage = 0.5
+    def __del__(self):
+        print(f"{self} has been deleted")
         
 class base_ennemi(Character):
     def __init__(self):
@@ -35,6 +44,8 @@ class base_ennemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
+    def __del__(self):
+        print(f"{self} has been deleted")
         
 class medium_ennemi(Character):
     def __init__(self):
@@ -46,3 +57,5 @@ class medium_ennemi(Character):
         self.magic_power = 25
         self.critical_rate = 0
         self.critical_damage = 0
+    def __del__(self):
+        print(f"{self} has been deleted")

@@ -10,6 +10,16 @@ class Turret_and_building:
         self.critical_rate
         self.critical_damage
         self.production
+    def take_dmg(self):
+        print("dmg taken")
+    def do_dmg(self):
+        print("dmg dealt")
+    def upgrade(self):
+        print("upgrade")
+    def repair(self):
+        print("repaired")
+    def loot(self):
+        print("looted")
     def __del__(self):
         print(f"{self} has been deleted")
         
