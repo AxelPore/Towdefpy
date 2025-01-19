@@ -173,12 +173,14 @@ class Gold_Mine(Turret_and_building):
         self.armor = 50
         self.magic_resist = 50
         self.production = 5
+        self.image = pygame.image.load('C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\buildings\goldMine.png')
+        self.width, self.height = self.image.get_size()
+
     def product(self, gold, minerals):
         return gold + self.production, minerals
+
     def draw(self, surface, offset_x, offset_y):
-        pygame.draw.rect(surface, (255, 255, 0), (self.x + offset_x, self.y + offset_y, self.width, self.height))
-    def __del__(self):
-        print(f"{self} has been deleted")
+        surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
 class Minerals_Mine(Turret_and_building):
     def __init__(self, x, y):
