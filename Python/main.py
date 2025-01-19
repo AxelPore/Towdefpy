@@ -15,7 +15,7 @@ def draw_map(tmx_data, surface):
 
 def main():
     pygame.init()
-    screen_width, screen_height = 1600, 1000
+    screen_width, screen_height = 1550, 800
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption('TMX Map Display with Pygame')
 
