@@ -7,12 +7,11 @@ class Character:
         self.y = y
         self.width = width
         self.height = height
-        self.health = 100  # Default health value
-        self.last_attack_time = 0  # Track the last attack time
+        self.health = 100  
+        self.last_attack_time = 0  
 
     def take_dmg(self, amount):
         self.health -= amount
-        print(f"Damage taken: {amount}, Health remaining: {self.health}")
         if self.health <= 0:
             self.__del__()
 
@@ -32,14 +31,11 @@ class Character:
         self.y = max(730, min(self.y, map_height - self.height - 730))
 
     def draw(self, surface, offset_x, offset_y):
-        # Placeholder for drawing the character (a red square for now)
         pygame.draw.rect(surface, (255, 0, 0), (self.x + offset_x, self.y + offset_y, self.width, self.height))
 
     def get_rect(self):
         return pygame.Rect(self.x, self.y, self.width, self.height)
 
-    def __del__(self):
-        print(f"{self} has been deleted")
 
 class PlayerEngineer(Character):
     def __init__(self, x, y):
@@ -52,11 +48,10 @@ class PlayerEngineer(Character):
         self.magic_power = 10
         self.critical_rate = 0.25
         self.critical_damage = 0.5
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\BigTankLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\BigTankLeft.png')
 
 
     def draw(self, surface, offset_x, offset_y):
-        # Draw the player as a green square
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
 
 class BaseEnnemi(Character):
@@ -70,7 +65,7 @@ class BaseEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -84,7 +79,6 @@ class BaseEnnemi(Character):
             self.y -= 1
 
     def draw(self, surface, offset_x, offset_y):
-        # Draw the enemy as a blue square
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
 class MediumEnnemi(Character):
@@ -98,7 +92,7 @@ class MediumEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -112,7 +106,6 @@ class MediumEnnemi(Character):
             self.y -= 1
 
     def draw(self, surface, offset_x, offset_y):
-        # Draw the enemy as a blue square
         self.image = pygame.transform.scale(self.image, (int(self.width * 2), int(self.height * 2)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
@@ -133,7 +126,7 @@ class AdvancedEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -147,7 +140,6 @@ class AdvancedEnnemi(Character):
             self.y -= 1
 
     def draw(self, surface, offset_x, offset_y):
-        # Draw the enemy as a blue square
         self.image = pygame.transform.scale(self.image, (int(self.width * 3), int(self.height * 3)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
@@ -168,7 +160,7 @@ class EliteEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -182,7 +174,6 @@ class EliteEnnemi(Character):
             self.y -= 1
 
     def draw(self, surface, offset_x, offset_y):
-        # Draw the enemy as a blue square
         self.image = pygame.transform.scale(self.image, (int(self.width * 4), int(self.height * 4)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         
@@ -203,7 +194,7 @@ class BossEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -217,7 +208,6 @@ class BossEnnemi(Character):
             self.y -= 1
 
     def draw(self, surface, offset_x, offset_y):
-        # Draw the enemy as a blue square
         self.image = pygame.transform.scale(self.image, (int(self.width * 5), int(self.height * 5)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
         

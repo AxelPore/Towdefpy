@@ -7,20 +7,8 @@ class Turret_and_building:
         self.y = y
         self.width = width
         self.height = height
-        self.health = 100  # Default health value
-        self.last_attack_time = 0  # Track the last attack time
-    def take_dmg(self):
-        print("dmg taken")
-    def do_dmg(self):
-        print("dmg dealt")
-    def upgrade(self):
-        print("upgrade")
-    def repair(self):
-        print("repaired")
-    def loot(self):
-        print("looted")
-    def __del__(self):
-        print(f"{self} has been deleted")
+        self.health = 100  
+        self.last_attack_time = 0  
         
 class Nexus(Turret_and_building):
     def __init__(self, x, y):
@@ -37,11 +25,11 @@ class Nexus(Turret_and_building):
         self.critical_rate = 0.25
         self.critical_damage = 1.5
         self.production = 10
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\Maps\Nexus.png')
+        self.image = pygame.image.load(r'Image_and_map\Maps\Nexus.png')
 
     def take_dmg(self, amount):
         self.health -= amount
-        print(f"Damage taken: {amount}, Health remaining: {self.health}")
+        print(f"Damage taken by nexus: {amount}, Health remaining: {self.health}")
         if self.health <= 0:
             self.__del__()
 
@@ -61,6 +49,12 @@ class Nexus(Turret_and_building):
                     projectiles.append(Missile(self.x, self.y, enemy))
                     self.last_attack_time = current_time
                     break
+    
+    def get_rect(self):
+        scaled_width = int(self.width * 2)
+        scaled_height = int(self.height * 2)
+        return pygame.Rect(self.x - scaled_width // 2, self.y - scaled_height // 2, scaled_width, scaled_height)
+    
 
 class Missile:
     def __init__(self, x, y, target):
@@ -69,7 +63,7 @@ class Missile:
         self.target = target
         self.speed = 2
         self.damage_done = False
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\IAmAtomic.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\IAmAtomic.png')
 
     def move(self):
         if not self.damage_done:
@@ -94,7 +88,7 @@ class Magic_Tower(Turret_and_building):
         self.y = y
         self.range = 300
         self.last_attack_time = 0
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\buildings\towerMagic.png')
+        self.image = pygame.image.load(r'Image_and_map\buildings\towerMagic.png')
 
     def draw(self, surface, offset_x, offset_y):
         pygame.draw.circle(surface, (0, 255, 255), (self.x + offset_x, self.y + offset_y), self.range, 1)
@@ -117,7 +111,7 @@ class Magic_Projectile:
         self.target = target
         self.speed = 5
         self.damage_done = False
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\MagicBullet.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicBullet.png')
 
     def move(self):
         if not self.damage_done:
@@ -142,7 +136,7 @@ class Physical_Tower(Turret_and_building):
         self.y = y
         self.range = 150
         self.last_attack_time = 0
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\buildings\towerPhysical.png')
+        self.image = pygame.image.load(r'Image_and_map\buildings\towerPhysical.png')
 
     def draw(self, surface, offset_x, offset_y):
         pygame.draw.circle(surface, (0, 255, 255), (self.x + offset_x, self.y + offset_y), self.range, 1)
@@ -165,7 +159,7 @@ class Physical_Projectile:
         self.target = target
         self.speed = 10
         self.damage_done = False
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\characters\PhysBullet.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\PhysBullet.png')
 
     def move(self):
         if not self.damage_done:
@@ -190,7 +184,7 @@ class Gold_Mine(Turret_and_building):
         self.armor = 50
         self.magic_resist = 50
         self.production = 5
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\buildings\goldMine.png')
+        self.image = pygame.image.load(r'Image_and_map\buildings\goldMine.png')
         self.width, self.height = self.image.get_size()
 
     def product(self, gold, minerals):
@@ -206,7 +200,7 @@ class Minerals_Mine(Turret_and_building):
         self.health = 250
         self.armor = 50
         self.magic_resist = 50
-        self.image = pygame.image.load(r'C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\buildings\mineralsMine.png')
+        self.image = pygame.image.load(r'Image_and_map\buildings\mineralsMine.png')
         self.production = 5
     def product(self, gold, minerals):
         return gold, minerals + self.production
