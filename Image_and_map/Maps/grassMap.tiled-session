@@ -6,6 +6,13 @@
         "": {
             "scaleInDock": 1
         },
+        "Nexus.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Rock.tsx": {
+            "scaleInEditor": 1
+        },
         "grass.tsx": {
             "scaleInEditor": 1
         }
@@ -15,6 +22,8 @@
     ],
     "project": "grassMap.tiled-project",
     "recentFiles": [
+        "Nexus.tsx",
+        "Rock.tsx",
         "grass.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
