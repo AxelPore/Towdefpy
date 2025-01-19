@@ -21,6 +21,7 @@
     "openFiles": [
     ],
     "project": "grassMap.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "Nexus.tsx",
         "Rock.tsx",
