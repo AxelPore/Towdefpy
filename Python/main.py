@@ -4,8 +4,6 @@ import random
 import character
 import turret_and_building
 
-
-
 def load_tmx_map(filename):
     return pytmx.load_pygame(filename, pixelalpha=True)
 
@@ -43,14 +41,22 @@ def main():
     # Initialize the player character at the center of the map
     player = character.PlayerEngineer(map_center_x, map_center_y)
     nexus = turret_and_building.Nexus(map_center_x, map_center_y)
+    
+    gold = 100
+    minerals = 100
+    magic_cristals = 100
     # List to hold enemies, turrets, and projectiles
     enemies = []
     turrets = []
     projectiles = []
+    mines = []
 
     # Timing variables for spawning and deleting enemies
-    spawn_interval = 500  # 15 seconds
+    spawn_interval = 15000  # 15 seconds
     last_spawn_time = 0
+
+    production_interval = 10000  # 10 seconds
+    last_production_time = 0
 
     running = True
     clock = pygame.time.Clock()
@@ -70,8 +76,32 @@ def main():
             player.move(0, -5, tmx_data.width * tmx_data.tilewidth, tmx_data.height * tmx_data.tileheight)
         if keys[pygame.K_DOWN]:
             player.move(0, 5, tmx_data.width * tmx_data.tilewidth, tmx_data.height * tmx_data.tileheight)
+        
+        # Check for building turret and mine
         if keys[pygame.K_TAB]:
-            turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
+            if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
+                gold -= 10
+                minerals -= 10
+                magic_cristals -= 10
+        if keys[pygame.K_1]:
+            if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                turrets.append(turret_and_building.Physical_Tower(player.x, player.y))
+                gold -= 10
+                minerals -= 10
+                magic_cristals -= 10
+        if keys[pygame.K_SPACE]:
+            if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                mines.append(turret_and_building.Gold_Mine(player.x, player.y))
+                gold -= 10
+                minerals -= 10
+                magic_cristals -= 10
+        if keys[pygame.K_0]:
+            if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                mines.append(turret_and_building.Minerals_Mine(player.x, player.y))
+                gold -= 10
+                minerals -= 10
+                magic_cristals -= 10
 
         # Enemy spawning logic
         if current_time - last_spawn_time > spawn_interval:
@@ -80,7 +110,13 @@ def main():
             enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
             last_spawn_time = current_time
 
-
+        # Resource production logic
+        if current_time - last_production_time > production_interval:
+            magic_cristals = nexus.product(magic_cristals)
+            for mine in mines:
+                gold, minerals = mine.product(gold, minerals)
+            last_production_time = current_time
+        print(gold, minerals, magic_cristals)
         # Enemy chasing logic
         for enemy in enemies:
             enemy.chase(player)
@@ -119,6 +155,8 @@ def main():
             turret.draw(screen, offset_x, offset_y)  # Draw each turret with offsets
         for projectile in projectiles:
             projectile.draw(screen, offset_x, offset_y)  # Draw each projectile with offsets
+        for mine in mines:
+            mine.draw(screen, offset_x, offset_y)  # Draw each mine with offsets
 
         pygame.display.flip()
         clock.tick(60)
