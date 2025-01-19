@@ -15,14 +15,13 @@ def draw_map(tmx_data, surface, offset_x, offset_y):
                 if tile:
                     surface.blit(tile, (x * tmx_data.tilewidth + offset_x, y * tmx_data.tileheight + offset_y))
 
-def check_collision(player, enemies):
-    player_rect = player.get_rect()
+def check_collision(nexus, enemies):
+    nexus_rect = nexus.get_rect()
     for enemy in enemies:
-        if player_rect.colliderect(enemy.get_rect()):
-            player.do_dmg(enemy)
-            enemy.do_dmg(player)
-            if player.health <= 0 or enemy.health <= 0:
-                return enemy
+        if nexus_rect.colliderect(enemy.get_rect()):
+            enemy.do_dmg(nexus)
+            if nexus.health <= 0 or enemy.health <= 0:
+                return nexus
     return None
 
 def main():
@@ -165,9 +164,9 @@ def main():
                 projectiles.remove(projectile)
 
         # Collision detection and handling
-        enemy_to_delete = check_collision(player, enemies)
-        if enemy_to_delete:
-            enemies.remove(enemy_to_delete)
+        nexus_down = check_collision(nexus, enemies)
+        if nexus_down:
+            pygame.quit()
 
         # Remove enemies with 0 or less health
         enemies = [enemy for enemy in enemies if enemy.health > 0]
