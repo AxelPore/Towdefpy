@@ -22,9 +22,14 @@ class Character:
             target.take_dmg(10)
             self.last_attack_time = current_time
 
-    def move(self, dx, dy):
+    def move(self, dx, dy, map_width, map_height):
+        # Update position
         self.x += dx
         self.y += dy
+
+        # Restrict movement to the map boundaries
+        self.x = max(0, min(self.x, map_width - self.width))
+        self.y = max(0, min(self.y, map_height - self.height))
 
     def draw(self, surface, offset_x, offset_y):
         # Placeholder for drawing the character (a red square for now)

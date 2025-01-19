@@ -63,13 +63,13 @@ def main():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            player.move(-5, 0)
+            player.move(-5, 0, tmx_data.width * tmx_data.tilewidth, tmx_data.height * tmx_data.tileheight)
         if keys[pygame.K_RIGHT]:
-            player.move(5, 0)
+            player.move(5, 0, tmx_data.width * tmx_data.tilewidth, tmx_data.height * tmx_data.tileheight)
         if keys[pygame.K_UP]:
-            player.move(0, -5)
+            player.move(0, -5, tmx_data.width * tmx_data.tilewidth, tmx_data.height * tmx_data.tileheight)
         if keys[pygame.K_DOWN]:
-            player.move(0, 5)
+            player.move(0, 5, tmx_data.width * tmx_data.tilewidth, tmx_data.height * tmx_data.tileheight)
         if keys[pygame.K_TAB]:
             turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
 
