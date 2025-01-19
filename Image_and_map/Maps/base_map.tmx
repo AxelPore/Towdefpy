@@ -3,7 +3,6 @@
  <tileset firstgid="1" name="grass" tilewidth="50" tileheight="50" tilecount="49" columns="7">
   <image source="grass.png" width="389" height="378"/>
  </tileset>
- <tileset firstgid="50" source=":/automap-tiles.tsx"/>
  <tileset firstgid="55" source="trees.tsx"/>
  <tileset firstgid="379" source="rockFloor.tsx"/>
  <tileset firstgid="779" source="Nexus.tsx"/>
