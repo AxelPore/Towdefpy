@@ -42,14 +42,14 @@ def main():
 
     # Initialize the player character at the center of the map
     player = character.PlayerEngineer(map_center_x, map_center_y)
-
+    nexus = turret_and_building.Nexus(map_center_x, map_center_y)
     # List to hold enemies, turrets, and projectiles
     enemies = []
     turrets = []
     projectiles = []
 
     # Timing variables for spawning and deleting enemies
-    spawn_interval = 15000  # 15 seconds
+    spawn_interval = 500  # 15 seconds
     last_spawn_time = 0
 
     running = True
@@ -88,6 +88,8 @@ def main():
         # Turret attack logic
         for turret in turrets:
             turret.attack(enemies, projectiles)
+            
+        nexus.attack(enemies, projectiles)
 
         # Projectile movement and collision logic
         for projectile in list(projectiles):
@@ -110,6 +112,7 @@ def main():
         screen.fill((0, 0, 0))  # Clear the screen with black
         draw_map(tmx_data, screen, offset_x, offset_y)  # Draw the map surface with offsets
         player.draw(screen, offset_x, offset_y)  # Draw the player character with offsets
+        nexus.draw(screen, offset_x, offset_y)
         for enemy in enemies:
             enemy.draw(screen, offset_x, offset_y)  # Draw each enemy with offsets
         for turret in turrets:

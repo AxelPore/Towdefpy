@@ -23,7 +23,12 @@ class Turret_and_building:
         print(f"{self} has been deleted")
         
 class Nexus(Turret_and_building):
-    def __init__(self):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.x = x
+        self.y = y
+        self.range = 300
+        self.last_attack_time = 0
         self.health = 1000
         self.armor = 100
         self.magic_resist = 100
@@ -32,8 +37,19 @@ class Nexus(Turret_and_building):
         self.critical_rate = 0.25
         self.critical_damage = 1.5
         self.production = 10
-    def __del__(self):
-        print(f"{self} has been deleted")
+
+    def draw(self, surface, offset_x, offset_y):
+        pygame.draw.circle(surface, (0, 255, 255), (self.x + offset_x, self.y + offset_y), self.range, 1)
+        pygame.draw.rect(surface, (255, 0, 0), (self.x + offset_x, self.y + offset_y, self.width, self.height))
+
+    def attack(self, enemies, projectiles):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_attack_time >= 1000:  # Attack cooldown
+            for enemy in enemies:
+                if math.hypot(enemy.x - self.x, enemy.y - self.y) <= self.range:
+                    projectiles.append(Projectile(self.x, self.y, enemy))
+                    self.last_attack_time = current_time
+                    break
         
 class Magic_Tower:
     def __init__(self, x, y):
