@@ -206,5 +206,3 @@ class Minerals_Mine(Turret_and_building):
     def draw(self, surface, offset_x, offset_y):
         self.image = pygame.transform.scale(self.image, (int(self.width * 1.75), int(self.height * 2)))
         surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
-    def __del__(self):
-        print(f"{self} has been deleted")
