@@ -1,5 +1,5 @@
 import pygame
-
+import turret_and_building
 
 class Character:
     def __init__(self, x, y, width=50, height=50):
@@ -25,7 +25,6 @@ class Character:
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
-        print(f"Moved to ({self.x}, {self.y})")
 
     def draw(self, surface, offset_x, offset_y):
         # Placeholder for drawing the character (a red square for now)
@@ -48,6 +47,9 @@ class PlayerEngineer(Character):
         self.magic_power = 10
         self.critical_rate = 0.25
         self.critical_damage = 0.5
+
+    def build(self):
+        turret = turret_and_building.Magic_Tower(self.x, self.y)
 
     def draw(self, surface, offset_x, offset_y):
         # Draw the player as a green square
