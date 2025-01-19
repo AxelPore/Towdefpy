@@ -116,7 +116,6 @@ def main():
             for mine in mines:
                 gold, minerals = mine.product(gold, minerals)
             last_production_time = current_time
-        print(gold, minerals, magic_cristals)
         # Enemy chasing logic
         for enemy in enemies:
             enemy.chase(player)

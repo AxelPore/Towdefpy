@@ -69,10 +69,10 @@ class Missile:
             self.y += self.speed * math.sin(direction)
 
     def draw(self, surface, offset_x, offset_y):
-        pygame.draw.circle(surface, (255, 0, 0), (int(self.x + offset_x), int(self.y + offset_y)), 5)
+        pygame.draw.circle(surface, (25, 30, 110), (int(self.x + offset_x), int(self.y + offset_y)), 15)
 
     def check_collision(self):
-        if not self.damage_done and math.hypot(self.target.x - self.x, self.target.y - self.y) < 5:
+        if not self.damage_done and math.hypot(self.target.x - self.x, self.target.y - self.y) < 15:
             self.target.take_dmg(100)
             self.damage_done = True
             return True
@@ -173,14 +173,12 @@ class Gold_Mine(Turret_and_building):
         self.armor = 50
         self.magic_resist = 50
         self.production = 5
-        self.image = pygame.image.load('C:\Users\axelp\Desktop\School\Python\Towdefpy\Image_and_map\buildings\goldMine.png')
-        self.width, self.height = self.image.get_size()
-
     def product(self, gold, minerals):
         return gold + self.production, minerals
-
     def draw(self, surface, offset_x, offset_y):
-        surface.blit(self.image, (self.x + offset_x, self.y + offset_y))
+        pygame.draw.rect(surface, (255, 255, 0), (self.x + offset_x, self.y + offset_y, self.width, self.height))
+    def __del__(self):
+        print(f"{self} has been deleted")
         
 class Minerals_Mine(Turret_and_building):
     def __init__(self, x, y):
