@@ -20,7 +20,7 @@ def check_collision(nexus, enemies):
     for enemy in enemies:
         if nexus_rect.colliderect(enemy.get_rect()):
             enemy.do_dmg(nexus)
-            if nexus.health <= 0 or enemy.health <= 0:
+            if nexus.health <= 0:
                 return nexus
     return None
 
