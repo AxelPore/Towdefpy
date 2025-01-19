@@ -20,7 +20,7 @@ def main():
     pygame.display.set_caption('TMX Map Display with Pygame')
 
     # Load the TMX map
-    tmx_data = load_tmx_map('Image_and_map/Maps/grassTest.tmx')
+    tmx_data = load_tmx_map('Image_and_map/Maps/base_map.tmx')
 
     # Create a surface to draw the map on
     map_surface = pygame.Surface((tmx_data.width * tmx_data.tilewidth, tmx_data.height * tmx_data.tileheight))
