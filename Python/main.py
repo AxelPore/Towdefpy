@@ -52,11 +52,18 @@ def main():
     mines = []
 
     # Timing variables for spawning and deleting enemies
-    spawn_interval = 15000  # 15 seconds
+    spawn_interval = 5000  # 15 seconds
     last_spawn_time = 0
 
     production_interval = 10000  # 10 seconds
     last_production_time = 0
+
+    # Timing variables for appending turrets and mines
+    turret_cooldown = 0.5  # 0.5 seconds cooldown
+    last_turret_time = 0
+
+    mine_cooldown = 0.5  # 0.5 seconds cooldown
+    last_mine_time = 0
 
     running = True
     clock = pygame.time.Clock()
@@ -79,34 +86,48 @@ def main():
         
         # Check for building turret and mine
         if keys[pygame.K_TAB]:
-            if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
-                turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
-                gold -= 10
-                minerals -= 10
-                magic_cristals -= 10
+            if current_time - last_turret_time > turret_cooldown * 1000:  # Convert to milliseconds
+                if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
+                    gold -= 10
+                    minerals -= 10
+                    magic_cristals -= 10
+                    last_turret_time = current_time  # Update last turret time
+
         if keys[pygame.K_1]:
-            if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
-                turrets.append(turret_and_building.Physical_Tower(player.x, player.y))
-                gold -= 10
-                minerals -= 10
-                magic_cristals -= 10
+            if current_time - last_turret_time > turret_cooldown * 1000:  # Convert to milliseconds
+                if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    turrets.append(turret_and_building.Physical_Tower(player.x, player.y))
+                    gold -= 10
+                    minerals -= 10
+                    magic_cristals -= 10
+                    last_turret_time = current_time  # Update last turret time
+
         if keys[pygame.K_SPACE]:
-            if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
-                mines.append(turret_and_building.Gold_Mine(player.x, player.y))
-                gold -= 10
-                minerals -= 10
-                magic_cristals -= 10
+            if current_time - last_mine_time > mine_cooldown * 1000:  # Convert to milliseconds
+                if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    mines.append(turret_and_building.Gold_Mine(player.x, player.y))
+                    gold -= 10
+                    minerals -= 10
+                    magic_cristals -= 10
+                    last_mine_time = current_time  # Update last mine time
+
         if keys[pygame.K_0]:
-            if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
-                mines.append(turret_and_building.Minerals_Mine(player.x, player.y))
-                gold -= 10
-                minerals -= 10
-                magic_cristals -= 10
+            if current_time - last_mine_time > mine_cooldown * 1000:  # Convert to milliseconds
+                if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    mines.append(turret_and_building.Minerals_Mine(player.x, player.y))
+                    gold -= 10
+                    minerals -= 10
+                    magic_cristals -= 10
+                    last_mine_time = current_time  # Update last mine time
 
         # Enemy spawning logic
         if current_time - last_spawn_time > spawn_interval:
-            enemy_x = random.randint(0, tmx_data.width * tmx_data.tilewidth - 50)
-            enemy_y = random.randint(0, tmx_data.height * tmx_data.tileheight - 50)
+            while True:
+                enemy_x = random.randint(0, tmx_data.width * tmx_data.tilewidth - 50)
+                enemy_y = random.randint(0, tmx_data.height * tmx_data.tileheight - 50)
+                if enemy_x < 720 or enemy_y < 720 or enemy_x > tmx_data.width * tmx_data.tilewidth - 720 or enemy_y > tmx_data.width * tmx_data.tilewidth - 720:
+                    break
             enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
             last_spawn_time = current_time
 
