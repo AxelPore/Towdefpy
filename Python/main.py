@@ -30,27 +30,24 @@ def main():
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption('TMX Map Display with Pygame')
 
-    # Load the TMX map
     tmx_data = load_tmx_map('Image_and_map/Maps/grassMap.tmx')
 
-    # Calculate the center of the map
     map_center_x = (tmx_data.width * tmx_data.tilewidth) // 2
     map_center_y = (tmx_data.height * tmx_data.tileheight) // 2
 
-    # Initialize the player character at the center of the map
     player = character.PlayerEngineer(map_center_x, map_center_y)
     nexus = turret_and_building.Nexus(map_center_x, map_center_y)
     
     gold = 100
     minerals = 100
     magic_cristals = 100
-    # List to hold enemies, turrets, and projectiles
+
     enemies = []
     turrets = []
     projectiles = []
     mines = []
 
-    # Timing variables for spawning and deleting enemies
+
     spawn_interval = 1000  # 1 seconds
     ennemiesSpawned = 0
     last_spawn_time = 0
@@ -58,7 +55,7 @@ def main():
     production_interval = 10000  # 10 seconds
     last_production_time = 0
 
-    # Timing variables for appending turrets and mines
+
     turret_cooldown = 0.5  # 0.5 seconds cooldown
     last_turret_time = 0
 
@@ -97,47 +94,47 @@ def main():
                     return False
             return True
 
-        # Check for building turret and mine
+
         if keys[pygame.K_TAB]:
             if current_time - last_turret_time > turret_cooldown * 1000:
                 if is_position_valid(player.x, player.y, mines + turrets):  # Convert to milliseconds
-                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    if gold >= 20 and minerals >= 10 and magic_cristals >= 30:
                         turrets.append(turret_and_building.Magic_Tower(player.x, player.y))
-                        gold -= 10
+                        gold -= 20
                         minerals -= 10
-                        magic_cristals -= 10
-                        last_turret_time = current_time  # Update last turret time
+                        magic_cristals -= 30
+                        last_turret_time = current_time  
 
         if keys[pygame.K_1]:
             if current_time - last_turret_time > turret_cooldown * 1000:  # Convert to milliseconds
                 if is_position_valid(player.x, player.y, mines + turrets):
-                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    if gold >= 10 and minerals >= 20 and magic_cristals >= 10:
                         turrets.append(turret_and_building.Physical_Tower(player.x, player.y))
                         gold -= 10
-                        minerals -= 10
+                        minerals -= 20
                         magic_cristals -= 10
-                        last_turret_time = current_time  # Update last turret time
+                        last_turret_time = current_time  
 
         if keys[pygame.K_SPACE]:
             if current_time - last_mine_time > mine_cooldown * 1000:  # Convert to milliseconds
                 if is_position_valid(player.x, player.y, mines + turrets):
-                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    if gold >= 10 and minerals >= 10 and magic_cristals >= 5:
                         mines.append(turret_and_building.Gold_Mine(player.x, player.y))
                         gold -= 10
                         minerals -= 10
-                        magic_cristals -= 10
-                        last_mine_time = current_time  # Update last mine time
+                        magic_cristals -= 5
+                        last_mine_time = current_time  
 
         if keys[pygame.K_0]:
             if current_time - last_mine_time > mine_cooldown * 1000:  # Convert to milliseconds
                 if is_position_valid(player.x, player.y, mines + turrets):
-                    if gold >= 10 and minerals >= 10 and magic_cristals >= 10:
+                    if gold >= 10 and minerals >= 10 and magic_cristals >= 5:
                         
                         mines.append(turret_and_building.Minerals_Mine(player.x, player.y))
                         gold -= 10
                         minerals -= 10
-                        magic_cristals -= 10
-                        last_mine_time = current_time  # Update last mine time
+                        magic_cristals -= 5
+                        last_mine_time = current_time  
 
         # Check if it's time to start a new wave
         if not wave_active and current_time - wave_start_time > wave_interval:
@@ -196,39 +193,37 @@ def main():
                 numberOfWaves+=1 
                 ennemiesSpawned = 0                     
         
-        # Resource production logic
         if current_time - last_production_time > production_interval:
             magic_cristals = nexus.product(magic_cristals)
             for mine in mines:
                 gold, minerals = mine.product(gold, minerals)
             last_production_time = current_time
-        # Enemy chasing logic
+
         for enemy in enemies:
             enemy.chase(nexus)
 
-        # Turret attack logic
+
         for turret in turrets:
             turret.attack(enemies, projectiles)
             
         nexus.attack(enemies, projectiles)
 
-        # Projectile movement and collision logic
         for projectile in list(projectiles):
             projectile.move()
             if projectile.check_collision():
                 projectiles.remove(projectile)
 
-        # Collision detection and handling
+
         nexus_down = check_collision(nexus, enemies)
         if nexus_down:
             pygame.quit()
 
-        # Remove enemies with 0 or less health
+ 
         enemies = [enemy for enemy in enemies if enemy.health > 0]
 
         # Calculate the camera offset to center the player
-        offset_x = screen_width // 2 - player.x - 25  # 25 is half the player width
-        offset_y = screen_height // 2 - player.y - 25  # 25 is half the player height
+        offset_x = screen_width // 2 - player.x - 25 
+        offset_y = screen_height // 2 - player.y - 25 
 
         screen.fill((0, 0, 0))  # Clear the screen with black
         draw_map(tmx_data, screen, offset_x, offset_y)  # Draw the map surface with offsets
