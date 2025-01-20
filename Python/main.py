@@ -68,7 +68,7 @@ def main():
     wave_start_time = 0
     wave_active = False
     wave_duration = 60 * 1000  # 1 minute in milliseconds
-    wave_interval = 3 * 60 * 1000  # 3 minutes in milliseconds
+    wave_interval = 60 * 1000  # 3 minutes in milliseconds
     initial_delay = 30 * 1000
 
     numberOfWaves = 0
@@ -146,43 +146,43 @@ def main():
 
         # If a wave is active, spawn enemies every second
         if wave_active:
-            if current_time - last_spawn_time > 1000:  # 1 second in milliseconds
+            if current_time - last_spawn_time > 500:  # 1 second in milliseconds
                 while True:
                     enemy_x = random.randint(0, tmx_data.width * tmx_data.tilewidth - 50)
                     enemy_y = random.randint(0, tmx_data.height * tmx_data.tileheight - 50)
                     if enemy_x < 720 or enemy_y < 720 or enemy_x > tmx_data.width * tmx_data.tilewidth - 720 or enemy_y > tmx_data.width * tmx_data.tilewidth - 720:
                         break
-                if numberOfWaves < 5:
+                if numberOfWaves < 2:
                     enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
-                elif numberOfWaves < 15 :
-                    if ennemiesSpawned < 40:
+                elif numberOfWaves < 5 :
+                    if ennemiesSpawned < 100:
                         enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
                     else:
                         enemies.append(character.MediumEnnemi(enemy_x, enemy_y))
-                elif numberOfWaves < 30 :
-                    if ennemiesSpawned < 30:
+                elif numberOfWaves < 8 :
+                    if ennemiesSpawned < 80:
                         enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
-                    elif ennemiesSpawned < 50 :
+                    elif ennemiesSpawned < 100 :
                         enemies.append(character.MediumEnnemi(enemy_x, enemy_y))
                     else:
                         enemies.append(character.AdvancedEnnemi(enemy_x, enemy_y))
-                elif numberOfWaves < 50 :
-                    if ennemiesSpawned < 20:
+                elif numberOfWaves < 10 :
+                    if ennemiesSpawned < 90:
                         enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
-                    elif ennemiesSpawned < 40 :
+                    elif ennemiesSpawned < 100 :
                         enemies.append(character.MediumEnnemi(enemy_x, enemy_y))
-                    elif ennemiesSpawned < 55:
+                    elif ennemiesSpawned < 110:
                         enemies.append(character.AdvancedEnnemi(enemy_x, enemy_y))
                     else:
                         enemies.append(character.EliteEnnemi(enemy_x, enemy_y))
                 else:
-                    if ennemiesSpawned < 15:
+                    if ennemiesSpawned < 85:
                         enemies.append(character.BaseEnnemi(enemy_x, enemy_y))
-                    elif ennemiesSpawned < 35 :
+                    elif ennemiesSpawned < 100 :
                         enemies.append(character.MediumEnnemi(enemy_x, enemy_y))
-                    elif ennemiesSpawned < 50:
+                    elif ennemiesSpawned < 110:
                         enemies.append(character.AdvancedEnnemi(enemy_x, enemy_y))
-                    elif ennemiesSpawned < 59:
+                    elif ennemiesSpawned < 119:
                         enemies.append(character.EliteEnnemi(enemy_x, enemy_y))
                     else:
                         enemies.append(character.BossEnnemi(enemy_x, enemy_y))

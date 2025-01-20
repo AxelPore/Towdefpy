@@ -92,7 +92,7 @@ class MediumEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicMidGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -126,7 +126,7 @@ class AdvancedEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicAdvGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -160,7 +160,7 @@ class EliteEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\MagicEliteGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
@@ -194,7 +194,7 @@ class BossEnnemi(Character):
         self.magic_power = 10
         self.critical_rate = 0
         self.critical_damage = 0
-        self.image = pygame.image.load(r'Image_and_map\characters\MagicGhostLeft.png')
+        self.image = pygame.image.load(r'Image_and_map\characters\LavenderGhostLeft.png')
 
     def chase(self, target):
         if self.x < target.x:
